@@ -6,12 +6,12 @@ def broadcast(op):
 	while True:
 		bsock=socket(socket.AF_INET, socket.SOCK_DGRAM)
 		bsock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-		bsock.sendto(uname + ' at ' +  ,("192.168.0.255",12345))
+		bsock.sendto(uname + ' at ' +  (str(socket.gethostbyname(socket.getfqdn())),("192.168.0.255",12345))
 		if str(op) != "once":
 			time.sleep(120)
 		else:
 			bsock.close()
-			break()
+			break
 
 def listen():
 	#listen to broadcast for hosts. 
@@ -28,8 +28,8 @@ def listen():
 		#should put in an array of hosts
 def startup():
 	broadcast()
-	listen():
-	ask():
+	listen()
+	ask()
 	uname = raw_input("what is your username?")
 def ask():
 	bsock=socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -41,7 +41,14 @@ startup()
 if len(hosts) > 0:
 	print("Hosts Found!")
 	print(hosts)
+	target = raw_input("please type the username of the host you would like to chat with.")
+	connect(target)
+elif len(hosts) == 0:
+	print("sorry,no hosts.")
 
+def connect(e):
+	#connect to a host
+	s = socket.socket()
 
 
 
