@@ -4,13 +4,13 @@ hosts = []
 def broadcast(op):
 	#broadcast your ip, should put in a timed loop
 	while True:
-		s=socket(socket.AF_INET, socket.SOCK_DGRAM)
-		s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-		s.sendto(uname + ' at ' +  (str(socket.gethostbyname(socket.getfqdn())),("192.168.0.255",12345))
+		bsock=socket(socket.AF_INET, socket.SOCK_DGRAM)
+		bsock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+		bsock.sendto(uname + ' at ' +  (str(socket.gethostbyname(socket.getfqdn())),("192.168.0.255",12345))
 		if str(op) != "once":
 			time.sleep(120)
 		else:
-			s.close()
+			bsock.close()
 			break
 
 def listen():
@@ -32,8 +32,8 @@ def startup():
 	ask()
 	uname = raw_input("what is your username?")
 def ask():
-	s=socket(socket.AF_INET, socket.SOCK_DGRAM)
-	s.sendto("asking",("192.168.0.255",12345))
+	bsock=socket(socket.AF_INET, socket.SOCK_DGRAM)
+	bsock.sendto("asking",("192.168.0.255",12345))
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print("starting up on %s" % server_address)
